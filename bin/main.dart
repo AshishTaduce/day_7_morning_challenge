@@ -1,3 +1,4 @@
+import 'dart:io';
 
 // Last time you wrote PrintBoard function which takes in the board and prints it to the console
 // Today you have to take user input and populate the Board at required location
@@ -74,8 +75,37 @@ main() {
   var boardSize = 3;
   List<List<String>> board =
   List.generate(boardSize, (_) => List.filled(boardSize, ' '));
+  printBoard(board);
 
+  String player = 'X';
 
+  List<dynamic> filledvalue = [];
+  while(true) {
+    print('$player move');
+    String userchoice = stdin.readLineSync();
+    if (filledvalue.contains(userchoice)) {
+      print('invalid choice');
+    }else{
+      board[Row(userchoice)][Column(userchoice)] = player;
+      printBoard(board);
+      filledvalue.add(userchoice);
+      if (player == 'X') {
+        player = 'O';
+      } else {
+        player = 'X';
+      }
+
+    }
+  }
+
+}
+int Column(String x){
+  List columnvalue=['A','B','C'];
+  return columnvalue.indexOf(x[0]);
+}
+int Row(String x){
+  List Rowvalue=['1','2','3'];
+  return Rowvalue.indexOf(x[1]);
 }
 
 void printBoard(List<List<String>> board) {
@@ -91,3 +121,4 @@ void printBoard(List<List<String>> board) {
 String rowToString(List<String> row) {
   return row.map((String val) => ' $val ').join('|');
 }
+
